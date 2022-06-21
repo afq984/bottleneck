@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        span {
+            background-color: dodgerblue;
+            width: 64px;
+            height: 64px;
+            display: inline-block;
+            padding: 0;
+            margin: 4px;
+            font-family: sans-serif;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 64px;
+            color: white;
+        }
+
+        span.active {
+            background-color: hotpink;
+        }
+
+        div {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <script>
+        const numbers = [...Array(25).keys()];
+        const spans = [];
+        let header;
+        let start;
+        let end;
+
+        function randint(max) {
+            return Math.min(max - 1, Math.floor(Math.random() * max));
+        }
+
+        function shuffle(arr) {
+            for (let i = 0; i + 1 < arr.length; i++) {
+                const j = randint(arr.length - i) + i;
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+
+        function clicked(span, next) {
+            span.classList = [];
+            span.innerText = "";
+            if (next === 1) {
+                start = Date.now();
+            }
+            end = Date.now();
+            header.innerText = `${next} in ${end - start}ms`;
+            if (next < 25) {
+                setActive(next);
+            }
+        }
+
+        function setActive(num) {
+            const span = spans[numbers[num]];
+            span.classList = ["active"];
+            span.addEventListener('click', () => {
+                clicked(span, num + 1);
+            });
+        }
+
+        shuffle(numbers);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            header = document.querySelector('header');
+            const main = document.querySelector('main');
+            for (let y = 0; y < 5; y++) {
+                const div = document.createElement('div');
+                for (let x = 0; x < 5; x++) {
+                    const span = document.createElement('span');
+                    spans.push(span);
+                    div.insertAdjacentElement('beforeend', span);
+                }
+                main.insertAdjacentElement('beforeend', div);
+            }
+
+            for (const i in numbers) {
+                spans[numbers[i]].innerText = i;
+            }
+
+            setActive(0);
+        });
+    </script>
+</head>
+
+<body>
+    <header>placeholder for timer</header>
+    <main></main>
+</body>
+
+</html>
