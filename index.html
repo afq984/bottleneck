@@ -44,7 +44,8 @@
             }
         }
 
-        function clicked(span, next) {
+        function clicked(span, next, handler) {
+            span.removeEventListener('click', handler);
             span.classList = [];
             span.innerText = "";
             if (next === 1) {
@@ -60,9 +61,10 @@
         function setActive(num) {
             const span = spans[numbers[num]];
             span.classList = ["active"];
-            span.addEventListener('click', () => {
-                clicked(span, num + 1);
-            });
+            const handler = () => {
+                clicked(span, num + 1, handler);
+            }
+            span.addEventListener('click', handler);
         }
 
         shuffle(numbers);
