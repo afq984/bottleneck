@@ -3,7 +3,7 @@
 
 <head>
     <style>
-        span {
+        a {
             background-color: dodgerblue;
             width: 64px;
             height: 64px;
@@ -15,9 +15,10 @@
             vertical-align: middle;
             line-height: 64px;
             color: white;
+	    text-decoration: none;
         }
 
-        span.active {
+        a.active {
             background-color: hotpink;
         }
 
@@ -75,7 +76,7 @@
             for (let y = 0; y < 5; y++) {
                 const div = document.createElement('div');
                 for (let x = 0; x < 5; x++) {
-                    const span = document.createElement('span');
+                    const span = document.createElement('a');
                     spans.push(span);
                     div.insertAdjacentElement('beforeend', span);
                 }
